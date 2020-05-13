@@ -1,0 +1,3 @@
+The bug occurs in the pop method just before the return statement.
+free() is called with e, and then we are trying to return e->name,
+memory which has just been freed. This results in undefined behavior.

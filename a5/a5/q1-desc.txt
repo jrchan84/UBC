@@ -1,0 +1,19 @@
+Reads: (9)
+S1: 1.) memory read for value of i (will be reused for all other lines)
+    2.) memory read for address in a (will be reused for all other lines)
+    3.) memory read for address in x
+    4.) memory read for value of x[i]
+S2: 5.) memory read for value of a->b.y[i] (reused for S5 as its the same except S5 goes through a pointer loop)
+S3: 6.) memory read for value of a->b.a (will be reused in S5)
+    7.) memory read for value of a->b.a->x
+    8.) memory read for value of a->b.a->x[i]
+
+Writes: (5)
+Each line of code has an variable or pointer value being assigned another value
+and therefore the 5 lines of code needs 5 writes to be able to make changes in
+memory.
+S1: store a->x[i] in &v0
+S2: store a->b.y[i] in &v1
+S3: store a->b.a->x[i] in &v2
+S4: store a in &a->b.a
+S5: store a->b.a->b.y[i] in &v3

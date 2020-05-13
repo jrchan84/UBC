@@ -1,0 +1,10 @@
+The memory leak occurs in the set as when set_empty is called and the pointers
+in the set are set to NULL, losing access to the new integers added in helper.c.
+Adjacently, there is also a leak in stack when pop is called and element is
+freed, as element->integer is also a pointer to the new integer added in
+helper_process_input.
+
+My solution was to reference count to new integers in integer.c as well as
+rc_keep_ref in stack_push and set_add (only when non duplicates are added). I
+then added rc_free_ref at the end of helper_process_input, in stack_pop_and_print,
+and in set_empty to free the memory before the program finishes.

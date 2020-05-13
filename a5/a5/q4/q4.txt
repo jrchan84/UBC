@@ -1,0 +1,3 @@
+The bug occurs in list_delete_element. The method frees the value of the element
+and the element itself, causing dangling pointers in the tree nodes, as the list
+element has been deleted and the tree nodes point to the list.
