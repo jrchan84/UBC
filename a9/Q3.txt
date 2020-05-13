@@ -1,0 +1,27 @@
+time ./aRead 10       time ./sRead 10       time ./tRead 10
+207                   207                   207
+
+real	0m0.015s        real  0m0.113s        real 0m0.020s
+user	0m0.010s        user  0m0.107s        user 0m0.000s
+sys	  0m0.004s        sys   0.005s          sys  0m0.014s
+
+time ./aRead 100      time ./sRead 100      time ./tRead 100
+1644                  1644                  1644
+
+real	0m0.015s        real  0m1.104s        real 0.097s
+user	0m0.010s        user	0m1.103s        user 0m0.000s
+sys	  0m0.001s        sys   0m0.001s        sys  0m0.114s
+
+time ./aRead 1000     time ./sRead 1000     time ./tRead 1000
+16193                 16193                 16193
+
+real	0m0.018s        real  0m10.997s       real 0m0.835s
+user	0m0.013s        user	0m10.989s       user 0m0.004s
+sys	  0m0.005s        sys   0m0.005s        sys  0m1.004s
+
+aRead and tRead have similar performances but tRead has a longer system time.
+tRead achieves this performance by using threads that can stop to wait for
+disk reads without having to wait for the return, link in sRead. However,
+the implementation of tRead uses two for loops, one to create each thread
+and one to join the threads, resulting in a longer time spent running in
+the OS.

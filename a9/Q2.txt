@@ -1,0 +1,27 @@
+time ./aRead 10       time ./sRead 10
+207                   207
+
+real	0m0.015s        real  0m0.113s
+user	0m0.010s        user  0m0.107s
+sys	  0m0.004s        sys   0.005s
+
+time ./aRead 100      time ./sRead 100
+1644                  1644
+
+real	0m0.015s        real  0m1.104s
+user	0m0.010s        user	0m1.103s
+sys	  0m0.001s        sys   0m0.001s
+
+time ./aRead 1000     time ./sRead 1000
+16193                 16193
+
+real	0m0.018s        real  0m10.997s
+user	0m0.013s        user	0m10.989s
+sys	  0m0.005s        sys   0m0.005s
+
+We observe that aRead is significantly faster than sRead, and that even for
+different inputs, aRead's computation time does not seem to grow significantly.
+Compared to sRead, which waits for the disk to transfer the data, aRead
+requests the next disk reads while waiting for the data to be transferred.
+This results in the shorter computation time as disk transfers can run in parallel
+and summation is a quick computation that doesn't affect time too much.
